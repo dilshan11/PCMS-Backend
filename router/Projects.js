@@ -38,4 +38,22 @@ router.post('/getviwerproject',async(req,res)=>{
     res.send(records);
 })
 
+router.post('/update',async(req,res)=>{
+    let project=await Project.find({code:req.body.precode});
+    project=project[0];
+    project.code=req.body.procode;
+    project.name=req.body.proname;
+    project.description=req.body.prodescription;
+    console.log(project);
+    let pro=await project.save();
+    let proarr=await Project.find();
+    res.send(proarr);
+})
+
+router.post('/delete',async(req,res)=>{
+    let projec=await Project.deleteOne({code:req.body.procode});
+    let result=await Project.find();
+    res.send(result);
+})
+
 module.exports=router;

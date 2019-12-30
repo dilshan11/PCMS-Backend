@@ -32,8 +32,13 @@ router.post('/login',async(req,res)=>{
     let result=await User.find({username:req.body.uname,password:req.body.password});
     
     if(result.length==0) return res.send(false);
-    
-         res.send(result);
+    if(result[0].status.toLowerCase()=="active"){
+       /// return res.send(false);
+       return res.send(result);
+    }else{
+        return res.send(false);
+    }
+         
 });
 
 router.post('/passwordchange',async(req,res)=>{
