@@ -51,7 +51,16 @@ router.post('/update',async(req,res)=>{
 })
 
 router.post('/delete',async(req,res)=>{
+    let proid=await Project.find({code:req.body.procode});
+    
+    proid=proid[0]._id;
     let projec=await Project.deleteOne({code:req.body.procode});
+    let users=await User.find({viwer:true})
+
+    for(let user of users){
+        user.project.splice(user.project.indexOf(proid),1);
+        await user.save();
+    }
     let result=await Project.find();
     res.send(result);
 })

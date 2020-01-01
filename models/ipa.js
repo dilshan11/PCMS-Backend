@@ -7,7 +7,16 @@ const Ipa=mongoose.model('ipa',new mongoose.Schema({
         ref:'Project'
     },
     subtopic:Array,
-    maintopic:Array
+    maintopic:Array,
+    
+    contractName:String,
+    contractNumber:String,
+    startDate:String,
+    finishDate:String,
+    contractAmount:String,
+    maximumRetention:String,
+    advance:String,
+    paymentStatus:String
 })
 );
 module.exports.Ipa=Ipa;
