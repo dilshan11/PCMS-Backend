@@ -27,6 +27,7 @@ router.post('/save',async(req,res)=>{
 
 router.get('/getallproject',async (req,res)=>{
     let result=await Project.find();
+  
     res.send(result);
 })
 

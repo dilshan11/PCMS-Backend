@@ -8,7 +8,14 @@ const Ipa=mongoose.model('ipa',new mongoose.Schema({
     },
     subtopic:Array,
     maintopic:Array,
-    
+    total:Array,
+     
+    ipaSubmitted:Array,
+    ipcCrtfyDly:Array,
+    ipcCrtfyPayDly:Array,
+    pRvd:Array,
+    complted:Array,
+
     contractName:String,
     contractNumber:String,
     startDate:String,

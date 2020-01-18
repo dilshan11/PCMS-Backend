@@ -2,6 +2,7 @@ const express=require('express');
 const {Admin}=require('../models/admin');
 const router=express.Router();
 
+
 router.post('/save',async(req,res)=>{
     let admin=new Admin({
         username:req.body.uname,
