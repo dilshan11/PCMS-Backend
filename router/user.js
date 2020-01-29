@@ -1,5 +1,6 @@
 const express=require('express');
 const {User}=require('../models/users');
+const {Project}=require('../models/project');
 const router=express.Router();
 
 router.post('/save',async(req,res)=>{
@@ -74,6 +75,27 @@ router.post('/update',async(req,res)=>{
     res.send(a);
 
     
-})
+});
+
+router.get('/getProject/:name',async(req,res)=>{
+   
+   if(req.params.name=="asd"){                             // get all project for admin
+     let result=await Project.find();
+        res.send(result);
+   }else{                                            // 
+       let result=(await User.find({username:req.params.name}))[0];
+       let proid_arr=result.project;
+      
+       let oneprojectarr=[];
+       for(let oneproid of proid_arr){
+           if(oneproid != null){
+              oneprojectarr.push(await Project.findById(oneproid));
+           }
+       }
+        res.send(oneprojectarr);
+       
+   }
+    
+});
 
 module.exports=router;

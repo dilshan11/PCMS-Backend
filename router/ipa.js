@@ -3,6 +3,17 @@ const {Ipa}=require('../models/ipa');
 const router=express.Router();
 var schedule = require('node-schedule');
 
+router.get('/getbarchart/:name',async(req,res)=>{
+  console.log(req.params.name);
+ let ipa=(await Ipa.find({project:req.params.name}).select({basecontent:1}))[0];
+ let barchartdata=[];
+for(let row of ipa.basecontent){
+ barchartdata.push({ipa_no:row[0].value,ctydly:row[12].value,paydly:row[13].value});
+}
+console.log(barchartdata);
+  res.send(barchartdata);
+});
+
 router.post('/save',async(req,res)=>{
   
       
@@ -73,7 +84,8 @@ router.post('/getall',async(req,res)=>{
      res.send(result);
 });
 
-var j = schedule.scheduleJob('20 * * * * *',async function(){
+var j = schedule.scheduleJob('* * 16 * * *',async function(){
+  console.log("working");
   let object_idcollection=await Ipa.find().select({_id:1});
   for(let object_id of object_idcollection){
     let onedoc=await Ipa.findById(object_id);
